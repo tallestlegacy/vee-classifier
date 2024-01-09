@@ -1,12 +1,13 @@
 // ignore_for_file: avoid_print
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
 const apiUrl = "https://ic-z7zmwc5wdq-uc.a.run.app";
 
-Future<dynamic> getPrediction(File image) async {
+Future<Map<String, dynamic>?> getPrediction(File image) async {
   var url = "$apiUrl/predict";
 
   var request = http.MultipartRequest('POST', Uri.parse(url));
@@ -23,7 +24,8 @@ Future<dynamic> getPrediction(File image) async {
     if (response.statusCode == 200) {
       // Image uploaded successfully
       print("Image uploaded successfully");
-      return response.stream.bytesToString();
+      return jsonDecode(await response.stream.bytesToString())
+          as Map<String, dynamic>;
     } else {
       // Handle error
       print("Error uploading image");
