@@ -2,5 +2,5 @@ import 'package:flutter/material.dart';
 
 var themeData = ThemeData(
   useMaterial3: true,
-  colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+  colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
 );

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "71513143223",
+    "project_id": "viola-d30e4",
+    "storage_bucket": "viola-d30e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71513143223:android:c63ee84953ac70c46ada32",
+        "android_client_info": {
+          "package_name": "com.example.classifier"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5TGvlNYpVLtLeXH2sevHbRK1L-G67-q0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

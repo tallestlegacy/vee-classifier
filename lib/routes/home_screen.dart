@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tflite_v2/tflite_v2.dart';
 
 import "camera_screen.dart";
 
@@ -29,58 +28,11 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       imagePath = result;
     });
-
-    print("Preparing to load model");
-    await loadModel().catchError((e) {
-      print("failed to load model");
-      print(e);
-    }).then((value) => {
-          if (mounted) {testImage()}
-        });
-  }
-
-  Future<void> loadModel() async {
-    try {
-      print("Loading model...");
-      String? res = await Tflite.loadModel(
-        model: "assets/model.tflite",
-        numThreads: 1,
-        isAsset: true,
-        useGpuDelegate: false,
-      );
-      print("Loaded : ${res ?? 'failed'}");
-    } catch (e) {
-      print(e);
-      rethrow;
-    }
-  }
-
-  Future<void> testImage() async {
-    if (imagePath == "") return;
-
-    print("Testing image: $imagePath");
-
-    var file = File(imagePath);
-
-    if (!file.existsSync()) {
-      print("File does not exist");
-      return;
-    }
-
-    try {
-      var recognitions = await Tflite.runModelOnImage(
-        path: imagePath, // required
-      );
-      print("Recognitions: $recognitions");
-    } catch (e) {
-      print(e);
-    }
   }
 
   @override
   void dispose() {
     super.dispose();
-    Tflite.close();
   }
 
   @override
