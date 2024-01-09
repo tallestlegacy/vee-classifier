@@ -16,7 +16,7 @@ class HistoryScreen extends StatelessWidget {
         .where("userId", isEqualTo: FirebaseAuth.instance.currentUser!.uid);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("History")),
+      appBar: AppBar(title: const Text("My History")),
       body: FirestoreListView<Map<String, dynamic>>(
         query: myPredictionsQuery,
         loadingBuilder: (context) => const Center(
@@ -31,7 +31,8 @@ class HistoryScreen extends StatelessWidget {
               ListTile(
                 title: Text(prediction.time.toDate().toString()),
                 subtitle: Text(
-                    "${prediction.confidence} chance of ${prediction.prediction}"),
+                  "${prediction.confidence} chance of ${prediction.prediction}",
+                ),
               ),
               const Divider(),
             ],

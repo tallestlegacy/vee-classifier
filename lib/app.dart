@@ -27,7 +27,7 @@ class AppRoot extends StatelessWidget {
             providers: providers,
             actions: [
               AuthStateChangeAction<SignedIn>((context, state) {
-                Navigator.pushReplacementNamed(context, '/home');
+                Navigator.pushReplacementNamed(context, '/');
               }),
             ],
           );

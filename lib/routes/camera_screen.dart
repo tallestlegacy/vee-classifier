@@ -17,8 +17,8 @@ class CameraScreenState extends State<CameraScreen> {
 
   @override
   void initState() {
-    startCamera();
     super.initState();
+    startCamera();
   }
 
   @override
@@ -64,7 +64,7 @@ class CameraScreenState extends State<CameraScreen> {
             Expanded(
               child: CameraPreview(cameraController),
             ),
-            CameraContolls(
+            CameraControlls(
               onCapture: captureImage,
             ),
           ],
@@ -76,8 +76,8 @@ class CameraScreenState extends State<CameraScreen> {
   }
 }
 
-class CameraContolls extends StatelessWidget {
-  const CameraContolls({
+class CameraControlls extends StatelessWidget {
+  const CameraControlls({
     super.key,
     required this.onCapture,
   });
@@ -90,6 +90,7 @@ class CameraContolls extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
       alignment: Alignment.center,
       child: IconButton.filledTonal(
+          iconSize: 62,
           onPressed: () {
             onCapture();
           },
