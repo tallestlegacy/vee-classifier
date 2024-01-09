@@ -11,6 +11,12 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (FirebaseAuth.instance.currentUser == null) {
+      return const Center(
+        child: Text("Please sign in first"),
+      );
+    }
+
     final myPredictionsQuery = FirebaseFirestore.instance
         .collection(predictionsCollection)
         .where("userId", isEqualTo: FirebaseAuth.instance.currentUser!.uid);
