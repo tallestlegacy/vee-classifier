@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/network.dart';
 import "camera_screen.dart";
 
 class HomeScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String imagePath = "";
+  bool isLoading = false;
 
   Future<void> getImagePathAfterNavigation(BuildContext context) async {
     final result = await Navigator.push(
@@ -28,6 +30,22 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       imagePath = result;
     });
+  }
+
+  Future<void> getImagePrediction() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      var res = await getPrediction(File(imagePath));
+      print(res);
+    } catch (e) {
+      print(e);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -44,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
           imagePath != ""
               ? Column(
                   children: [
+                    // NOTE Display the selected image
                     AspectRatio(
                       aspectRatio: 1,
                       child: Image.file(
@@ -51,9 +70,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         fit: BoxFit.fitWidth,
                       ),
                     ),
+
+                    // File preview
                     ListTile(
-                      leading: const Icon(Icons.photo),
-                      title: Text(imagePath),
+                      title: Text("File cached in $imagePath"),
+                      subtitle: const Text(
+                          "Click the 'upload' button on the right to initiate image prediction."),
+                      // NOTE Press this button to initiate image prediction
+                      trailing: IconButton(
+                        isSelected: isLoading,
+                        icon: const Icon(Icons.upload_file_rounded),
+                        onPressed: getImagePrediction,
+                      ),
                     )
                   ],
                 )

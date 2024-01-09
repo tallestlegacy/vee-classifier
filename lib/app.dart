@@ -1,10 +1,11 @@
+import "package:classifier/routes/history_screen.dart";
 import "package:classifier/utils/theme.dart";
 import "package:firebase_auth/firebase_auth.dart" hide EmailAuthProvider;
 import "package:firebase_ui_auth/firebase_ui_auth.dart";
 import "package:flutter/material.dart";
 
 import "routes/home_screen.dart";
-import "routes/user_screen.dart";
+import "routes/setting_screen.dart";
 
 class AppRoot extends StatelessWidget {
   const AppRoot({super.key});
@@ -58,8 +59,8 @@ class _AppState extends State<App> {
 
   List<Widget> screens = [
     const HomeScreen(),
-    const Placeholder(),
-    const UserScreen(),
+    const HistoryScreen(),
+    const SettingsScreen(),
   ];
 
   List<NavigationDestination> destinations = [
@@ -72,15 +73,18 @@ class _AppState extends State<App> {
       label: "History",
     ),
     const NavigationDestination(
-      icon: Icon(Icons.history),
-      label: "User",
+      icon: Icon(Icons.settings),
+      label: "Settings",
     )
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[currentIndex],
+      body: IndexedStack(
+        index: currentIndex,
+        children: screens,
+      ),
       bottomNavigationBar: NavigationBar(
         destinations: destinations,
         selectedIndex: currentIndex,
